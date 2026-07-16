@@ -1,0 +1,13 @@
+# Environments
+venv/
+__pycache__/
+*.pyc
+
+# Data (large, and not really "ours" to redistribute)
+data/CMAPSSData/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS junk
+.DS_Store
