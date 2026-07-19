@@ -3,8 +3,12 @@ venv/
 __pycache__/
 *.pyc
 
-# Data (large, and not really "ours" to redistribute)
+# Data (large)
 data/CMAPSSData/
+data/processed/
+
+# Model artifacts (large binary files)
+models/
 
 # Jupyter
 .ipynb_checkpoints/
