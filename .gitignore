@@ -6,6 +6,7 @@ __pycache__/
 # Data (large)
 data/CMAPSSData/
 data/processed/
+mlruns/
 
 # Model artifacts (large binary files)
 models/

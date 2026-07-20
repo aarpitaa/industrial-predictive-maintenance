@@ -15,8 +15,12 @@ training handled an engine's first few cycles.
 import joblib
 import numpy as np
 import pandas as pd
-import xgboost as xgb
 from pathlib import Path
+
+import mlflow
+import mlflow.pyfunc
+
+mlflow.set_tracking_uri("sqlite:///" + str(Path(__file__).resolve().parent.parent / "mlflow.db"))
 
 _MODELS_DIR = Path(__file__).resolve().parent.parent / 'models'
 
@@ -25,12 +29,10 @@ _model = None
 
 
 def _load():
-    """Load the model and serving bundle once, cache in memory for reuse."""
     global _bundle, _model
     if _bundle is None:
         _bundle = joblib.load(_MODELS_DIR / 'serving_bundle.joblib')
-        _model = xgb.XGBRegressor()
-        _model.load_model(str(_MODELS_DIR / 'serving_xgb_regressor.json'))
+        _model = mlflow.pyfunc.load_model("models:/turbofan-xgb-regressor@champion")
     return _bundle, _model
 
 
