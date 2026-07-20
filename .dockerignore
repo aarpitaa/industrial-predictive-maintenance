@@ -1,0 +1,15 @@
+data/
+notebooks/
+.git
+.gitignore
+venv/
+mlruns/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+docker/
+README.md
+spark-warehouse/
+metastore_db/
+derby.log

@@ -20,9 +20,8 @@ from pathlib import Path
 import mlflow
 import mlflow.pyfunc
 
-mlflow.set_tracking_uri("sqlite:///" + str(Path(__file__).resolve().parent.parent / "mlflow.db"))
-
 _MODELS_DIR = Path(__file__).resolve().parent.parent / 'models'
+_MODEL_PATH = _MODELS_DIR / 'champion_model'
 
 _bundle = None
 _model = None
@@ -32,7 +31,7 @@ def _load():
     global _bundle, _model
     if _bundle is None:
         _bundle = joblib.load(_MODELS_DIR / 'serving_bundle.joblib')
-        _model = mlflow.pyfunc.load_model("models:/turbofan-xgb-regressor@champion")
+        _model = mlflow.pyfunc.load_model(str(_MODEL_PATH))
     return _bundle, _model
 
 

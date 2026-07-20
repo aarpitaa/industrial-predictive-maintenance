@@ -76,6 +76,22 @@ requirements.txt
 
 Note: PySpark was included primarily to demonstrate familiarity with distributed data tooling; the current dataset (a few hundred engines) doesn't itself require distributed processing to run quickly on a single machine.
 
+## Running the API locally with Docker
+
+```
+bash
+docker build -t turbofan-rul-api .
+docker run -p 8000:8000 turbofan-rul-api
+```
+
+Then test:
+```
+bash
+curl http://localhost:8000/health
+```
+
+Note: requires `models/champion_model/` to exist first — generate it by running `python src/export_model.py` after training and registering a model via MLflow.
+
 ## Status
 
 ✅ **Complete**: EDA, feature engineering, XGBoost baseline, LSTM, statistical model comparison, serving pipeline (`predict.py`)
