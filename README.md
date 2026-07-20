@@ -69,6 +69,13 @@ requirements.txt
 6. **Model comparison**: aligned both models' predictions on identical validation samples; compared using paired t-test, Wilcoxon signed-rank test, and bootstrap confidence intervals.
 7. **Serving**: packaged the winning model (XGBoost) with its fitted scaler and exact feature-column order into a single bundle, exposed through one `predict_rul()` function in `src/predict.py`.
 
+## Serving: two inference paths
+
+- **Real-time (`src/api/main.py`)**: FastAPI service, one prediction per request, model loaded once at startup. Suited to answering "is this specific engine about to fail?" on demand.
+- **Batch (`src/batch_scoring.py`)**: PySpark pipeline, scores an entire fleet's current RUL in one run. Feature engineering (rolling sensor statistics) is computed via Spark `Window` functions rather than pandas, demonstrating the same logic implemented for distributed execution. Suited to a scheduled job scoring hundreds/thousands of engines at once, rather than one-off requests.
+
+Note: PySpark was included primarily to demonstrate familiarity with distributed data tooling; the current dataset (a few hundred engines) doesn't itself require distributed processing to run quickly on a single machine.
+
 ## Status
 
 ✅ **Complete**: EDA, feature engineering, XGBoost baseline, LSTM, statistical model comparison, serving pipeline (`predict.py`)

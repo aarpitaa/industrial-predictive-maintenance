@@ -16,3 +16,8 @@ models/
 
 # OS junk
 .DS_Store
+
+# Spark
+metastore_db/
+derby.log
+spark-warehouse/
